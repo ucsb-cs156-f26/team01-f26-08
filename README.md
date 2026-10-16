@@ -1,4 +1,4 @@
-# STARTER-team01
+# team01-f26-08
 
 Instructions: <https://ucsb-cs156.github.io/s26/lab/team01.html>
 
@@ -16,7 +16,7 @@ TODO: Fill in this table with correct information.
 | Table                     | Name         | Github Id |
 |---------------------------|--------------|-----------|
 | UCSBDiningCommonsMenuItem |              |           |
-| UCSBOrganization          |              |           |
+| UCSBOrganization          |   Celine Zhao           |  celinezhao7         |
 | RecommendationRequest     |              |           |
 | MenuItemReview            |              |           |
 | HelpRequest               |              |           |
