@@ -1,7 +1,9 @@
 package edu.ucsb.cs156.example.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -258,5 +260,45 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
         .andExpect(status().isNotFound());
 
     verify(ucsbOrganizationsRepository, times(1)).findById("NOTFOUND");
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_delete_existing_organization() throws Exception {
+    UCSBOrganizations organization =
+        UCSBOrganizations.builder()
+            .orgCode("TEST")
+            .orgTranslationShort("TEST CLUB")
+            .orgTranslation("TEST ORGANIZATION")
+            .inactive(false)
+            .build();
+
+    when(ucsbOrganizationsRepository.findById("TEST")).thenReturn(Optional.of(organization));
+
+    MvcResult response =
+        mockMvc
+            .perform(delete("/api/ucsborganizations").param("id", "TEST").with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("TEST");
+    verify(ucsbOrganizationsRepository, times(1)).delete(organization);
+
+    String expectedJson = "{\"message\":\"UCSBOrganizations with id TEST deleted\"}";
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(expectedJson, responseString);
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_cannot_delete_nonexistent_organization() throws Exception {
+    when(ucsbOrganizationsRepository.findById("NOTFOUND")).thenReturn(Optional.empty());
+
+    mockMvc
+        .perform(delete("/api/ucsborganizations").param("id", "NOTFOUND").with(csrf()))
+        .andExpect(status().isNotFound());
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("NOTFOUND");
+    verify(ucsbOrganizationsRepository, never()).delete(any());
   }
 }
