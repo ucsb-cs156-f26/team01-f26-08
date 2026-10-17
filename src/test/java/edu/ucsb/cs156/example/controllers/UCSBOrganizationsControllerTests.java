@@ -185,4 +185,78 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
     verify(ucsbOrganizationsRepository, times(1)).findById("NOTFOUND");
   }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_edit_existing_organization() throws Exception {
+
+    UCSBOrganizations original =
+        UCSBOrganizations.builder()
+            .orgCode("TEST")
+            .orgTranslationShort("OLD CLUB")
+            .orgTranslation("OLD ORGANIZATION")
+            .inactive(false)
+            .build();
+
+    UCSBOrganizations edited =
+        UCSBOrganizations.builder()
+            .orgCode("TEST")
+            .orgTranslationShort("NEW CLUB")
+            .orgTranslation("NEW ORGANIZATION")
+            .inactive(true)
+            .build();
+
+    String requestBody = mapper.writeValueAsString(edited);
+
+    when(ucsbOrganizationsRepository.findById("TEST")).thenReturn(Optional.of(original));
+
+    when(ucsbOrganizationsRepository.save(eq(edited))).thenReturn(edited);
+
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/ucsborganizations")
+                    .param("id", "TEST")
+                    .contentType("application/json")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("TEST");
+    verify(ucsbOrganizationsRepository, times(1)).save(edited);
+
+    String expectedJson = mapper.writeValueAsString(edited);
+    String responseString = response.getResponse().getContentAsString();
+
+    assertEquals(expectedJson, responseString);
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_cannot_edit_nonexistent_organization() throws Exception {
+
+    UCSBOrganizations edited =
+        UCSBOrganizations.builder()
+            .orgCode("NOTFOUND")
+            .orgTranslationShort("NEW CLUB")
+            .orgTranslation("NEW ORGANIZATION")
+            .inactive(true)
+            .build();
+
+    String requestBody = mapper.writeValueAsString(edited);
+
+    when(ucsbOrganizationsRepository.findById("NOTFOUND")).thenReturn(Optional.empty());
+
+    mockMvc
+        .perform(
+            put("/api/ucsborganizations")
+                .param("id", "NOTFOUND")
+                .contentType("application/json")
+                .content(requestBody)
+                .with(csrf()))
+        .andExpect(status().isNotFound());
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("NOTFOUND");
+  }
 }

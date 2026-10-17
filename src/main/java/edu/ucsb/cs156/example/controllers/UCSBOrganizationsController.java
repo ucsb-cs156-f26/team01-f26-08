@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +62,36 @@ public class UCSBOrganizationsController extends ApiController {
                         HttpStatus.NOT_FOUND, "UCSB Organization Not Found"));
 
     return organization;
+  }
+
+  /**
+   * Update a UCSB organization
+   *
+   * @param id the orgCode of the organization to update
+   * @param incoming the updated organization data
+   * @return the updated organization
+   */
+  @Operation(summary = "Update a UCSB organization")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PutMapping("")
+  public UCSBOrganizations updateUCSBOrganization(
+      @Parameter(name = "id") @RequestParam String id, @RequestBody UCSBOrganizations incoming) {
+
+    UCSBOrganizations organization =
+        ucsbOrganizationsRepository
+            .findById(id)
+            .orElseThrow(
+                () ->
+                    new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "UCSB Organization Not Found"));
+
+    organization.setOrgTranslationShort(incoming.getOrgTranslationShort());
+    organization.setOrgTranslation(incoming.getOrgTranslation());
+    organization.setInactive(incoming.getInactive());
+
+    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);
+
+    return savedOrganization;
   }
 
   /**
