@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team01-f26-08
 owner: ucsb-cs156-f26
 repo_name: team01-f26-08
-pull_requests: []
+pull_requests: [{"author":{"id":"U_kgDODf-SIw","is_bot":false,"login":"celinezhao7","name":"Celine Zhao"},"headRefName":"Celine-UCSBOrganizationsController","number":44,"title":"Celine ucsb organizations controller","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/44"},{"author":{"id":"U_kgDODf-SIw","is_bot":false,"login":"celinezhao7","name":"Celine Zhao"},"headRefName":"Celine-UCSBOrganizationsTable","number":43,"title":"Add UCSBOrganizations database table","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/43"}]
