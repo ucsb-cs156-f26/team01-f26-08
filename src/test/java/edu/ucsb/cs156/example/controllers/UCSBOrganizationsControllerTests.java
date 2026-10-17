@@ -16,6 +16,7 @@ import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -137,5 +138,51 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
     String responseString = response.getResponse().getContentAsString();
 
     assertEquals(expectedJson, responseString);
+  }
+
+  @Test
+  public void logged_out_users_cannot_get_by_id() throws Exception {
+    mockMvc.perform(get("/api/ucsborganizations").param("id", "TEST")).andExpect(status().is(403));
+  }
+
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void logged_in_user_can_get_organization_by_id() throws Exception {
+
+    UCSBOrganizations org1 =
+        UCSBOrganizations.builder()
+            .orgCode("TEST")
+            .orgTranslationShort("TEST CLUB")
+            .orgTranslation("TEST ORGANIZATION AT UCSB")
+            .inactive(true)
+            .build();
+
+    when(ucsbOrganizationsRepository.findById("TEST")).thenReturn(Optional.of(org1));
+
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/ucsborganizations").param("id", "TEST"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("TEST");
+
+    String expectedJson = mapper.writeValueAsString(org1);
+    String responseString = response.getResponse().getContentAsString();
+
+    assertEquals(expectedJson, responseString);
+  }
+
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void logged_in_user_cannot_get_nonexistent_organization() throws Exception {
+
+    when(ucsbOrganizationsRepository.findById("NOTFOUND")).thenReturn(Optional.empty());
+
+    mockMvc
+        .perform(get("/api/ucsborganizations").param("id", "NOTFOUND"))
+        .andExpect(status().isNotFound());
+
+    verify(ucsbOrganizationsRepository, times(1)).findById("NOTFOUND");
   }
 }
