@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UCSBOrganizationsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">team01</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.example.controllers</a> &gt; <span class="el_source">UCSBOrganizationsController.java</span></div><h1>UCSBOrganizationsController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.example.controllers;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import edu.ucsb.cs156.example.entities.UCSBOrganizations;
+import edu.ucsb.cs156.example.repositories.UCSBOrganizationsRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+/** This is a REST controller for UCSBOrganizations */
+@Tag(name = &quot;UCSBOrganizations&quot;)
+@RequestMapping(&quot;/api/ucsborganizations&quot;)
+@RestController
+<span class="fc" id="L27">@Slf4j</span>
+<span class="fc" id="L28">public class UCSBOrganizationsController extends ApiController {</span>
+
+  @Autowired UCSBOrganizationsRepository ucsbOrganizationsRepository;
+
+  /**
+   * List all UCSB organizations
+   *
+   * @return an iterable of UCSBOrganizations
+   */
+  @Operation(summary = &quot;List all UCSB organizations&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+  @GetMapping(&quot;/all&quot;)
+  public Iterable&lt;UCSBOrganizations&gt; allUCSBOrganizations() {
+<span class="fc" id="L41">    Iterable&lt;UCSBOrganizations&gt; organizations = ucsbOrganizationsRepository.findAll();</span>
+<span class="fc" id="L42">    return organizations;</span>
+  }
+
+  /**
+   * Get a UCSB organization by ID
+   *
+   * @param id the ID of the organization
+   * @return the UCSB organization
+   */
+  @Operation(summary = &quot;Get a UCSB organization by ID&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+  @GetMapping(&quot;&quot;)
+  public UCSBOrganizations getUCSBOrganizationById(
+      @Parameter(name = &quot;id&quot;) @RequestParam String id) {
+
+<span class="fc" id="L57">    UCSBOrganizations organization =</span>
+        ucsbOrganizationsRepository
+<span class="fc" id="L59">            .findById(id)</span>
+<span class="fc" id="L60">            .orElseThrow(</span>
+                () -&gt;
+<span class="fc" id="L62">                    new ResponseStatusException(</span>
+                        HttpStatus.NOT_FOUND, &quot;UCSB Organization Not Found&quot;));
+
+<span class="fc" id="L65">    return organization;</span>
+  }
+
+  /**
+   * Update a UCSB organization
+   *
+   * @param id the orgCode of the organization to update
+   * @param incoming the updated organization data
+   * @return the updated organization
+   */
+  @Operation(summary = &quot;Update a UCSB organization&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+  @PutMapping(&quot;&quot;)
+  public UCSBOrganizations updateUCSBOrganization(
+      @Parameter(name = &quot;id&quot;) @RequestParam String id, @RequestBody UCSBOrganizations incoming) {
+
+<span class="fc" id="L81">    UCSBOrganizations organization =</span>
+        ucsbOrganizationsRepository
+<span class="fc" id="L83">            .findById(id)</span>
+<span class="fc" id="L84">            .orElseThrow(</span>
+                () -&gt;
+<span class="fc" id="L86">                    new ResponseStatusException(</span>
+                        HttpStatus.NOT_FOUND, &quot;UCSB Organization Not Found&quot;));
+
+<span class="fc" id="L89">    organization.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
+<span class="fc" id="L90">    organization.setOrgTranslation(incoming.getOrgTranslation());</span>
+<span class="fc" id="L91">    organization.setInactive(incoming.getInactive());</span>
+
+<span class="fc" id="L93">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
+
+<span class="fc" id="L95">    return savedOrganization;</span>
+  }
+
+  /**
+   * Create a new UCSB organization
+   *
+   * @param orgCode the organization code
+   * @param orgTranslationShort the short organization name
+   * @param orgTranslation the full organization name
+   * @param inactive whether the organization is inactive
+   * @return the saved UCSB organization
+   */
+  @Operation(summary = &quot;Create a new UCSB organization&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+  @PostMapping(&quot;/post&quot;)
+  public UCSBOrganizations postUCSBOrganization(
+      @Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode,
+      @Parameter(name = &quot;orgTranslationShort&quot;) @RequestParam String orgTranslationShort,
+      @Parameter(name = &quot;orgTranslation&quot;) @RequestParam String orgTranslation,
+      @Parameter(name = &quot;inactive&quot;) @RequestParam boolean inactive)
+      throws JsonProcessingException {
+
+<span class="fc" id="L117">    UCSBOrganizations organization = new UCSBOrganizations();</span>
+<span class="fc" id="L118">    organization.setOrgCode(orgCode);</span>
+<span class="fc" id="L119">    organization.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L120">    organization.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L121">    organization.setInactive(inactive);</span>
+
+<span class="fc" id="L123">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
+
+<span class="fc" id="L125">    return savedOrganization;</span>
+  }
+
+  /**
+   * Delete a UCSB organization
+   *
+   * @param id the orgCode of the organization to delete
+   * @return a confirmation message
+   */
+  @Operation(summary = &quot;Delete a UCSB organization&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+  @DeleteMapping(&quot;&quot;)
+  public Object deleteUCSBOrganization(@Parameter(name = &quot;id&quot;) @RequestParam String id) {
+
+<span class="fc" id="L139">    UCSBOrganizations organization =</span>
+        ucsbOrganizationsRepository
+<span class="fc" id="L141">            .findById(id)</span>
+<span class="fc" id="L142">            .orElseThrow(</span>
+                () -&gt;
+<span class="fc" id="L144">                    new ResponseStatusException(</span>
+                        HttpStatus.NOT_FOUND, &quot;UCSB Organization Not Found&quot;));
+
+<span class="fc" id="L147">    ucsbOrganizationsRepository.delete(organization);</span>
+
+<span class="fc" id="L149">    return java.util.Map.of(&quot;message&quot;, &quot;UCSBOrganizations with id &quot; + id + &quot; deleted&quot;);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
