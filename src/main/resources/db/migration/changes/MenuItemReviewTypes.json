@@ -1,0 +1,26 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "MenuItemReviews-2",
+        "author": "s-kyli",
+        "changes": [
+          {
+            "modifyDataType": {
+              "tableName": "MENUITEMREVIEWS",
+              "columnName": "STARS",
+              "newDataType": "INT"
+            }
+          },
+          {
+            "modifyDataType": {
+              "tableName": "MENUITEMREVIEWS",
+              "columnName": "DATE_REVIEWED",
+              "newDataType": "TIMESTAMP"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
