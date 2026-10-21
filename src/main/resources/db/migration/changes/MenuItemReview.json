@@ -55,7 +55,7 @@
                         "nullable": false
                       },
                       "name": "STARS",
-                      "type": "BIGINT"
+                      "type": "INT"
                     }
                   },
                   {
@@ -67,7 +67,7 @@
                   {
                     "column": {
                       "name": "DATE_REVIEWED",
-                      "type": "TIMESTAMP WITH TIME ZONE"
+                      "type": "TIMESTAMP"
                     }
                   }]
                 ,
