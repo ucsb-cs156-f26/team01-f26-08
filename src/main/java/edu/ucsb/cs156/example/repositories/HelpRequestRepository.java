@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 /** The HelpRequestRepository is a repository for HelpRequest entities. */
 @Repository
 @RepositoryRestResource(exported = false)
-public interface HelpRequestRepository extends CrudRepository<HelpRequest, Long> {
-  
-}
+public interface HelpRequestRepository extends CrudRepository<HelpRequest, Long> {}
