@@ -24,7 +24,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MvcResult;
 
-@WebMvcTest(controllers = Article.class)
+@WebMvcTest(controllers = ArticlesController.class)
 @Import(TestConfig.class)
 public class ArticlesControllerTests extends ControllerTestCase {
 
