@@ -303,9 +303,9 @@ public class ArticlesControllerTests extends ControllerTestCase {
     Article articleEdited =
         Article.builder()
             .title("admin can edit existing article")
-            .url("https://url.com")
+            .url("https://newurl.com")
             .explanation("admin can edit existing article")
-            .email("email@email.com")
+            .email("newemail@email.com")
             .dateAdded(ldt2)
             .build();
 
