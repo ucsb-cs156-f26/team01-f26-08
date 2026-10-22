@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = &quot;MenuItemReviews&quot;)
 @RequestMapping(&quot;/api/menuitemreviews&quot;)
 @RestController
-<span class="fc" id="L27">@Slf4j</span>
-<span class="fc" id="L28">public class MenuItemReviewsController extends ApiController {</span>
+<span class="fc" id="L28">@Slf4j</span>
+<span class="fc" id="L29">public class MenuItemReviewsController extends ApiController {</span>
 
   @Autowired MenuItemReviewRepository menuItemReviewRepository;
 
@@ -38,8 +39,8 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;/all&quot;)
   public Iterable&lt;MenuItemReview&gt; allMenuItemReviews() {
-<span class="fc" id="L41">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
-<span class="fc" id="L42">    return menuItemReviews;</span>
+<span class="fc" id="L42">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
+<span class="fc" id="L43">    return menuItemReviews;</span>
   }
 
   /**
@@ -66,18 +67,18 @@ import org.springframework.web.bind.annotation.RestController;
     // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     // See: https://www.baeldung.com/spring-date-parameters
 
-<span class="fc" id="L69">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
+<span class="fc" id="L70">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
 
-<span class="fc" id="L71">    MenuItemReview review = new MenuItemReview();</span>
-<span class="fc" id="L72">    review.setItemId(itemId);</span>
-<span class="fc" id="L73">    review.setReviewerEmail(reviewerEmail);</span>
-<span class="fc" id="L74">    review.setStars(stars);</span>
-<span class="fc" id="L75">    review.setComments(comments);</span>
-<span class="fc" id="L76">    review.setDateReviewed(dateReviewed);</span>
+<span class="fc" id="L72">    MenuItemReview review = new MenuItemReview();</span>
+<span class="fc" id="L73">    review.setItemId(itemId);</span>
+<span class="fc" id="L74">    review.setReviewerEmail(reviewerEmail);</span>
+<span class="fc" id="L75">    review.setStars(stars);</span>
+<span class="fc" id="L76">    review.setComments(comments);</span>
+<span class="fc" id="L77">    review.setDateReviewed(dateReviewed);</span>
 
-<span class="fc" id="L78">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
+<span class="fc" id="L79">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
 
-<span class="fc" id="L80">    return savedMenuItemReview;</span>
+<span class="fc" id="L81">    return savedMenuItemReview;</span>
   }
 
   /**
@@ -90,12 +91,12 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;&quot;)
   public MenuItemReview getById(@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L93">    MenuItemReview menuItemReview =</span>
+<span class="fc" id="L94">    MenuItemReview menuItemReview =</span>
         menuItemReviewRepository
-<span class="fc" id="L95">            .findById(id)</span>
-<span class="fc" id="L96">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+<span class="fc" id="L96">            .findById(id)</span>
+<span class="fc" id="L97">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
 
-<span class="fc" id="L98">    return menuItemReview;</span>
+<span class="fc" id="L99">    return menuItemReview;</span>
   }
 
   /**
@@ -111,20 +112,39 @@ import org.springframework.web.bind.annotation.RestController;
   public MenuItemReview updateMenuItemReview(
       @Parameter(name = &quot;id&quot;) @RequestParam Long id, @RequestBody @Valid MenuItemReview incoming) {
 
-<span class="fc" id="L114">    MenuItemReview menuItemReview =</span>
+<span class="fc" id="L115">    MenuItemReview menuItemReview =</span>
         menuItemReviewRepository
-<span class="fc" id="L116">            .findById(id)</span>
-<span class="fc" id="L117">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+<span class="fc" id="L117">            .findById(id)</span>
+<span class="fc" id="L118">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
 
-<span class="fc" id="L119">    menuItemReview.setItemId(incoming.getItemId());</span>
-<span class="fc" id="L120">    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
-<span class="fc" id="L121">    menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
-<span class="fc" id="L122">    menuItemReview.setComments(incoming.getComments());</span>
-<span class="fc" id="L123">    menuItemReview.setStars(incoming.getStars());</span>
+<span class="fc" id="L120">    menuItemReview.setItemId(incoming.getItemId());</span>
+<span class="fc" id="L121">    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
+<span class="fc" id="L122">    menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
+<span class="fc" id="L123">    menuItemReview.setComments(incoming.getComments());</span>
+<span class="fc" id="L124">    menuItemReview.setStars(incoming.getStars());</span>
 
-<span class="fc" id="L125">    menuItemReviewRepository.save(menuItemReview);</span>
+<span class="fc" id="L126">    menuItemReviewRepository.save(menuItemReview);</span>
 
-<span class="fc" id="L127">    return menuItemReview;</span>
+<span class="fc" id="L128">    return menuItemReview;</span>
+  }
+
+  /**
+   * Delete a MenuItemReview
+   *
+   * @param id the id of the review to delete
+   * @return a message indicating the review was deleted
+   */
+  @Operation(summary = &quot;Delete a MenuItemReview&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+  @DeleteMapping(&quot;&quot;)
+  public Object deleteMenuItemReview(@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L141">    MenuItemReview review =</span>
+        menuItemReviewRepository
+<span class="fc" id="L143">            .findById(id)</span>
+<span class="fc" id="L144">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+
+<span class="fc" id="L146">    menuItemReviewRepository.delete(review);</span>
+<span class="fc" id="L147">    return genericMessage(&quot;MenuItemReview with id %s deleted&quot;.formatted(id));</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
