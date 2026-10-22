@@ -1,0 +1,108 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "UCSBOrganizations-1",
+        "author": "celinezhao7",
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN"
+          },
+          {
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "UCSBORGANIZATIONS"
+                }
+              }
+            ]
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "UCSBORGANIZATIONS",
+              "columns": [
+                {
+                  "column": {
+                    "name": "ORG_CODE",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "UCSBORGANIZATIONS_PK"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "ORG_TRANSLATION_SHORT",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "ORG_TRANSLATION",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "INACTIVE",
+                    "type": "BOOLEAN",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "insert": {
+              "tableName": "UCSBORGANIZATIONS",
+              "columns": [
+                {"column": {"name": "ORG_CODE", "value": "ZPR"}},
+                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "ZETA PHI RHO"}},
+                {"column": {"name": "ORG_TRANSLATION", "value": "ZETA PHI RHO"}},
+                {"column": {"name": "INACTIVE", "valueBoolean": false}}
+              ]
+            }
+          },
+          {
+            "insert": {
+              "tableName": "UCSBORGANIZATIONS",
+              "columns": [
+                {"column": {"name": "ORG_CODE", "value": "SKY"}},
+                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "SKYDIVING CLUB"}},
+                {"column": {"name": "ORG_TRANSLATION", "value": "SKYDIVING CLUB AT UCSB"}},
+                {"column": {"name": "INACTIVE", "valueBoolean": false}}
+              ]
+            }
+          },
+          {
+            "insert": {
+              "tableName": "UCSBORGANIZATIONS",
+              "columns": [
+                {"column": {"name": "ORG_CODE", "value": "OSLI"}},
+                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "STUDENT LIFE"}},
+                {"column": {"name": "ORG_TRANSLATION", "value": "OFFICE OF STUDENT LIFE"}},
+                {"column": {"name": "INACTIVE", "valueBoolean": false}}
+              ]
+            }
+          },
+          {
+            "insert": {
+              "tableName": "UCSBORGANIZATIONS",
+              "columns": [
+                {"column": {"name": "ORG_CODE", "value": "KRC"}},
+                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "KOREAN RADIO CL"}},
+                {"column": {"name": "ORG_TRANSLATION", "value": "KOREAN RADIO CLUB"}},
+                {"column": {"name": "INACTIVE", "valueBoolean": false}}
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
