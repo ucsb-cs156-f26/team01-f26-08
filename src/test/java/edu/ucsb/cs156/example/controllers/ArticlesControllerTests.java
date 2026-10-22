@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.example.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -231,57 +232,59 @@ public class ArticlesControllerTests extends ControllerTestCase {
     assertEquals(expectedJson, responseString);
   }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_can_delete_a_date() throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_delete_an_article() throws Exception {
+    // arrange
 
-  //     LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+    LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-  //     UCSBDate ucsbDate1 =
-  //         UCSBDate.builder()
-  //             .name("firstDayOfClasses")
-  //             .quarterYYYYQ("20222")
-  //             .localDateTime(ldt1)
-  //             .build();
+    Article article1 =
+        Article.builder()
+            .title("admin can delete an article")
+            .url("https://url.com")
+            .explanation("admin can delete an article")
+            .email("email@email.com")
+            .dateAdded(ldt1)
+            .build();
 
-  //     when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.of(ucsbDate1));
+    when(articleRepository.findById(eq(15L))).thenReturn(Optional.of(article1));
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(delete("/api/ucsbdates").param("id", "15").with(csrf()))
-  //             .andExpect(status().isOk())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(delete("/api/articles").param("id", "15").with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
 
-  //     // assert
-  //     verify(ucsbDateRepository, times(1)).findById(15L);
-  //     verify(ucsbDateRepository, times(1)).delete(any());
+    // assert
+    verify(articleRepository, times(1)).findById(15L);
+    verify(articleRepository, times(1)).delete(any());
 
-  //     Map<String, Object> json = responseToJson(response);
-  //     assertEquals("UCSBDate with id 15 deleted", json.get("message"));
-  //   }
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("Article with id 15 deleted", json.get("message"));
+  }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
-  //       throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_tries_to_delete_non_existant_article_and_gets_right_error_message()
+      throws Exception {
+    // arrange
 
-  //     when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.empty());
+    when(articleRepository.findById(eq(15L))).thenReturn(Optional.empty());
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(delete("/api/ucsbdates").param("id", "15").with(csrf()))
-  //             .andExpect(status().isNotFound())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(delete("/api/articles").param("id", "15").with(csrf()))
+            .andExpect(status().isNotFound())
+            .andReturn();
 
-  //     // assert
-  //     verify(ucsbDateRepository, times(1)).findById(15L);
-  //     Map<String, Object> json = responseToJson(response);
-  //     assertEquals("UCSBDate with id 15 not found", json.get("message"));
-  //   }
+    // assert
+    verify(articleRepository, times(1)).findById(15L);
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("Article with id 15 not found", json.get("message"));
+  }
 
   @WithMockUser(roles = {"ADMIN", "USER"})
   @Test
