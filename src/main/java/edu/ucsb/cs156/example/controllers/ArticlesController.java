@@ -72,7 +72,7 @@ public class ArticlesController extends ApiController {
    * @param dateAdded the date the article was added
    * @return the saved article
    */
-  @Operation(summary = "Create a new date")
+  @Operation(summary = "Create a new article")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("/post")
   public Article postArticle(
