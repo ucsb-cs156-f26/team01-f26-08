@@ -17,6 +17,8 @@ import edu.ucsb.cs156.example.testconfig.TestConfig;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -47,12 +49,12 @@ public class ArticlesControllerTests extends ControllerTestCase {
     mockMvc.perform(get("/api/articles/all")).andExpect(status().is(200)); // logged
   }
 
-  //   @Test
-  //   public void logged_out_users_cannot_get_by_id() throws Exception {
-  //     mockMvc
-  //         .perform(get("/api/articles").param("id", "7"))
-  //         .andExpect(status().is(403)); // logged out users can't get by id
-  //   }
+  @Test
+  public void logged_out_users_cannot_get_by_id() throws Exception {
+    mockMvc
+        .perform(get("/api/articles").param("id", "7"))
+        .andExpect(status().is(403)); // logged out users can't get by id
+  }
 
   // Authorization tests for /api/articles/post
   // (Perhaps should also have these for put and delete)
@@ -86,62 +88,64 @@ public class ArticlesControllerTests extends ControllerTestCase {
         .andExpect(status().is(403)); // only admins can post
   }
 
-  // // Tests with mocks for database actions
+  // Tests with mocks for database actions
 
-  //   @WithMockUser(roles = {"USER"})
-  //   @Test
-  //   public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
 
-  //     // arrange
-  //     LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+    // arrange
 
-  //     UCSBDate ucsbDate =
-  //         UCSBDate.builder()
-  //             .name("firstDayOfClasses")
-  //             .quarterYYYYQ("20222")
-  //             .localDateTime(ldt)
-  //             .build();
+    LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
 
-  //     when(ucsbDateRepository.findById(eq(7L))).thenReturn(Optional.of(ucsbDate));
+    Article article =
+        Article.builder()
+            .title("logged in user can get by id when the id exists")
+            .url("https://url.com")
+            .explanation("logged in user can get by id when the id exists")
+            .email("email@email.com")
+            .dateAdded(ldt)
+            .build();
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(get("/api/ucsbdates").param("id", "7"))
-  //             .andExpect(status().isOk())
-  //             .andReturn();
+    when(articleRepository.findById(eq(7L))).thenReturn(Optional.of(article));
 
-  //     // assert
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/articles").param("id", "7"))
+            .andExpect(status().isOk())
+            .andReturn();
 
-  //     verify(ucsbDateRepository, times(1)).findById(eq(7L));
-  //     String expectedJson = mapper.writeValueAsString(ucsbDate);
-  //     String responseString = response.getResponse().getContentAsString();
-  //     assertEquals(expectedJson, responseString);
-  //   }
+    // assert
 
-  //   @WithMockUser(roles = {"USER"})
-  //   @Test
-  //   public void test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist() throws
-  // Exception {
+    verify(articleRepository, times(1)).findById(eq(7L));
+    String expectedJson = mapper.writeValueAsString(article);
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(expectedJson, responseString);
+  }
 
-  //     // arrange
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist() throws Exception {
 
-  //     when(ucsbDateRepository.findById(eq(7L))).thenReturn(Optional.empty());
+    // arrange
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(get("/api/ucsbdates").param("id", "7"))
-  //             .andExpect(status().isNotFound())
-  //             .andReturn();
+    when(articleRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
-  //     // assert
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/articles").param("id", "7"))
+            .andExpect(status().isNotFound())
+            .andReturn();
 
-  //     verify(ucsbDateRepository, times(1)).findById(eq(7L));
-  //     Map<String, Object> json = responseToJson(response);
-  //     assertEquals("EntityNotFoundException", json.get("type"));
-  //     assertEquals("UCSBDate with id 7 not found", json.get("message"));
-  //   }
+    // assert
+
+    verify(articleRepository, times(1)).findById(eq(7L));
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("EntityNotFoundException", json.get("type"));
+    assertEquals("Article with id 7 not found", json.get("message"));
+  }
 
   @WithMockUser(roles = {"USER"})
   @Test
