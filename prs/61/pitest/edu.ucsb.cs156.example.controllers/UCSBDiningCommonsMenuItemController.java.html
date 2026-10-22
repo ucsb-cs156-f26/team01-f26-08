@@ -2109,7 +2109,7 @@
 <td class=''><pre><span  class=''>  public Object deleteUCSBUCSBDiningCommonsMenuItem(@Parameter(name = &#34;id&#34;) @RequestParam Long id) {</span></pre></td></tr>
 
 <tr>
-<td class='uncovered'>
+<td class='covered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@27234b7c_149'/>
 149
 </td>
@@ -2120,7 +2120,7 @@
 </span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class=''>    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem =</span></pre></td></tr>
+<td class='covered'><pre><span  class=''>    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem =</span></pre></td></tr>
 
 <tr>
 <td class='na'>
@@ -2137,7 +2137,7 @@
 <td class=''><pre><span  class=''>        ucsbDiningCommonsMenuItemRepository</span></pre></td></tr>
 
 <tr>
-<td class='uncovered'>
+<td class='covered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@27234b7c_151'/>
 151
 </td>
@@ -2148,23 +2148,23 @@
 </span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class=''>            .findById(id)</span></pre></td></tr>
+<td class='covered'><pre><span  class=''>            .findById(id)</span></pre></td></tr>
 
 <tr>
-<td class='uncovered'>
+<td class='covered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@27234b7c_152'/>
 152
 </td>
-<td class='survived'>
+<td class='killed'>
 <span class='pop'>
 <a href='#grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_152'>1</a>
 <span>
-1. lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 : replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 &rarr; NO_COVERAGE<br/>
+1. lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 : replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 &rarr; KILLED<br/>
 
 </span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class='survived'>            .orElseThrow(() -&#62; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span></pre></td></tr>
+<td class='covered'><pre><span  class='killed'>            .orElseThrow(() -&#62; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span></pre></td></tr>
 
 <tr>
 <td class='na'>
@@ -2181,36 +2181,36 @@
 <td class=''><pre><span  class=''></span></pre></td></tr>
 
 <tr>
-<td class='uncovered'>
+<td class='covered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@27234b7c_154'/>
 154
 </td>
-<td class='survived'>
+<td class='killed'>
 <span class='pop'>
 <a href='#grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_154'>1</a>
 <span>
-1. deleteUCSBUCSBDiningCommonsMenuItem : removed call to edu/ucsb/cs156/example/repositories/UCSBDiningCommonsMenuItemRepository::delete &rarr; NO_COVERAGE<br/>
+1. deleteUCSBUCSBDiningCommonsMenuItem : removed call to edu/ucsb/cs156/example/repositories/UCSBDiningCommonsMenuItemRepository::delete &rarr; KILLED<br/>
 
 </span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class='survived'>    ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);</span></pre></td></tr>
+<td class='covered'><pre><span  class='killed'>    ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);</span></pre></td></tr>
 
 <tr>
-<td class='uncovered'>
+<td class='covered'>
 <a name='org.pitest.mutationtest.report.html.SourceFile@27234b7c_155'/>
 155
 </td>
-<td class='survived'>
+<td class='killed'>
 <span class='pop'>
 <a href='#grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_155'>1</a>
 <span>
-1. deleteUCSBUCSBDiningCommonsMenuItem : replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::deleteUCSBUCSBDiningCommonsMenuItem &rarr; NO_COVERAGE<br/>
+1. deleteUCSBUCSBDiningCommonsMenuItem : replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::deleteUCSBUCSBDiningCommonsMenuItem &rarr; KILLED<br/>
 
 </span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class='survived'>    return genericMessage(&#34;UCSBDiningCommonsMenuItem with id %s deleted&#34;.formatted(id));</span></pre></td></tr>
+<td class='covered'><pre><span  class='killed'>    return genericMessage(&#34;UCSBDiningCommonsMenuItem with id %s deleted&#34;.formatted(id));</span></pre></td></tr>
 
 <tr>
 <td class='na'>
@@ -2383,7 +2383,7 @@
 
 <a name='grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_152'/> 
 
-<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$deleteUCSBUCSBDiningCommonsMenuItem$0<br/><b>Killed by : </b>none</span></span> replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 &rarr; NO_COVERAGE</span>
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$deleteUCSBUCSBDiningCommonsMenuItem$0<br/><b>Killed by : </b>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_tries_to_delete_non_existant_ucsbdiningcommonsmenuitem_and_gets_right_error_message()]</span></span> replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::lambda$deleteUCSBUCSBDiningCommonsMenuItem$0 &rarr; KILLED</span>
 </div> 
 </td>
 </tr>
@@ -2394,7 +2394,7 @@
 
 <a name='grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_154'/> 
 
-<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUCSBUCSBDiningCommonsMenuItem<br/><b>Killed by : </b>none</span></span> removed call to edu/ucsb/cs156/example/repositories/UCSBDiningCommonsMenuItemRepository::delete &rarr; NO_COVERAGE</span>
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUCSBUCSBDiningCommonsMenuItem<br/><b>Killed by : </b>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_can_delete_a_diningcommonsmenuitem()]</span></span> removed call to edu/ucsb/cs156/example/repositories/UCSBDiningCommonsMenuItemRepository::delete &rarr; KILLED</span>
 </div> 
 </td>
 </tr>
@@ -2405,7 +2405,7 @@
 
 <a name='grouporg.pitest.mutationtest.report.html.SourceFile@27234b7c_155'/> 
 
-<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUCSBUCSBDiningCommonsMenuItem<br/><b>Killed by : </b>none</span></span> replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::deleteUCSBUCSBDiningCommonsMenuItem &rarr; NO_COVERAGE</span>
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUCSBUCSBDiningCommonsMenuItem<br/><b>Killed by : </b>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_can_delete_a_diningcommonsmenuitem()]</span></span> replaced return value with null for edu/ucsb/cs156/example/controllers/UCSBDiningCommonsMenuItemController::deleteUCSBUCSBDiningCommonsMenuItem &rarr; KILLED</span>
 </div> 
 </td>
 </tr>
@@ -2431,7 +2431,7 @@
 
 <h2>Tests examined</h2>
 <ul>
-<li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_can_edit_an_existing_ucsbdiningcommonsmenuitem()] (8 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:an_admin_user_can_post_a_new_ucsbdate()] (5 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:logged_in_users_can_get_all()] (3 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:logged_in_user_can_get_all_ucsbdates()] (6 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_cannot_edit_ucsbdiningcommonsmenuitem_that_does_not_exist()] (5 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_exists()] (4 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist()] (3 ms)</li>
+<li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_can_edit_an_existing_ucsbdiningcommonsmenuitem()] (11 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:an_admin_user_can_post_a_new_ucsbdate()] (5 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:logged_in_users_can_get_all()] (4 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:logged_in_user_can_get_all_ucsbdates()] (8 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_cannot_edit_ucsbdiningcommonsmenuitem_that_does_not_exist()] (6 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_exists()] (4 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_can_delete_a_diningcommonsmenuitem()] (9 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist()] (4 ms)</li><li>edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.example.controllers.UCSBDiningCommonsMenuItemControllerTests]/[method:admin_tries_to_delete_non_existant_ucsbdiningcommonsmenuitem_and_gets_right_error_message()] (7 ms)</li>
 </ul>
 
 <br/>
