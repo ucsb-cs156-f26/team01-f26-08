@@ -8,12 +8,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /** This is a REST controller for UCSBOrganizations */
 @Tag(name = "UCSBOrganizations")
@@ -35,6 +37,29 @@ public class UCSBOrganizationsController extends ApiController {
   public Iterable<UCSBOrganizations> allUCSBOrganizations() {
     Iterable<UCSBOrganizations> organizations = ucsbOrganizationsRepository.findAll();
     return organizations;
+  }
+
+  /**
+   * Get a UCSB organization by ID
+   *
+   * @param id the ID of the organization
+   * @return the UCSB organization
+   */
+  @Operation(summary = "Get a UCSB organization by ID")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  @GetMapping("")
+  public UCSBOrganizations getUCSBOrganizationById(
+      @Parameter(name = "id") @RequestParam String id) {
+
+    UCSBOrganizations organization =
+        ucsbOrganizationsRepository
+            .findById(id)
+            .orElseThrow(
+                () ->
+                    new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "UCSB Organization Not Found"));
+
+    return organization;
   }
 
   /**
