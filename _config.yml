@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team01-f26-08
 owner: ucsb-cs156-f26
 repo_name: team01-f26-08
-pull_requests: [{"author":{"id":"U_kgDOBrvATA","is_bot":false,"login":"s-kyli","name":"vq37"},"headRefName":"s-kyli-add-get-ep-MenuItemReview","number":71,"title":"pc - add controller method for GET by id for ","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/71"},{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"use-org-vars-for-dates","number":48,"title":"Pull START_DATE and END_DATE from org variables","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/48"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"use-org-vars-for-dates","number":48,"title":"Pull START_DATE and END_DATE from org variables","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/48"}]
