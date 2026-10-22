@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team01-f26-08
 owner: ucsb-cs156-f26
 repo_name: team01-f26-08
-pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"use-org-vars-for-dates","number":48,"title":"Pull START_DATE and END_DATE from org variables","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/48"}]
+pull_requests: [{"author":{"id":"U_kgDOC5bLlg","is_bot":false,"login":"jmkai","name":""},"headRefName":"Jared-RecReqController","number":69,"title":"jm - Recommendation Request Controller + Tests","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/69"},{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"use-org-vars-for-dates","number":48,"title":"Pull START_DATE and END_DATE from org variables","url":"https://github.com/ucsb-cs156-f26/team01-f26-08/pull/48"}]
