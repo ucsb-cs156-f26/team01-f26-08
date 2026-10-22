@@ -16,9 +16,12 @@ import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MvcResult;
@@ -215,7 +218,7 @@ public class MenuItemControllerTests extends ControllerTestCase {
             .dateReviewed(ldt1)
             .build();
 
-    String requestBody = mapper.writeValueAsString(ucsbEditedDate);
+    String requestBody = mapper.writeValueAsString(menuItemReview);
 
     when(menuItemReviewRepository.findById(eq(67L))).thenReturn(Optional.empty());
 
