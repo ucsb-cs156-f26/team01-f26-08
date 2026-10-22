@@ -114,17 +114,17 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L114">    MenuItemReview menuItemReview =</span>
         menuItemReviewRepository
 <span class="fc" id="L116">            .findById(id)</span>
-<span class="pc" id="L117">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+<span class="fc" id="L117">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
 
-<span class="nc" id="L119">    menuItemReview.setItemId(incoming.getItemId());</span>
-<span class="nc" id="L120">    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
-<span class="nc" id="L121">    menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
-<span class="nc" id="L122">    menuItemReview.setComments(incoming.getComments());</span>
-<span class="nc" id="L123">    menuItemReview.setStars(incoming.getStars());</span>
+<span class="fc" id="L119">    menuItemReview.setItemId(incoming.getItemId());</span>
+<span class="fc" id="L120">    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
+<span class="fc" id="L121">    menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
+<span class="fc" id="L122">    menuItemReview.setComments(incoming.getComments());</span>
+<span class="fc" id="L123">    menuItemReview.setStars(incoming.getStars());</span>
 
-<span class="nc" id="L125">    menuItemReviewRepository.save(menuItemReview);</span>
+<span class="fc" id="L125">    menuItemReviewRepository.save(menuItemReview);</span>
 
-<span class="nc" id="L127">    return menuItemReview;</span>
+<span class="fc" id="L127">    return menuItemReview;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
