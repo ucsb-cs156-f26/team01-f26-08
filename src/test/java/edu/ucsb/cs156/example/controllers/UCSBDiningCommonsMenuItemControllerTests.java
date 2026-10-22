@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MvcResult;
@@ -149,12 +150,12 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
     verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(eq(7L));
     Map<String, Object> json = responseToJson(response);
     assertEquals("EntityNotFoundException", json.get("type"));
-    assertEquals("UCSBDate with id 7 not found", json.get("message"));
+    assertEquals("UCSBDiningCommonsMenuItem with id 7 not found", json.get("message"));
   }
 
   @WithMockUser(roles = {"USER"})
   @Test
-  public void test_that_logged_in_user_can_get_by_id_when_the_id__exists() throws Exception {
+  public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
 
     // arrange
     UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 =
@@ -179,5 +180,84 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
     String expectedJson = mapper.writeValueAsString(ucsbDiningCommonsMenuItem1);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_edit_an_existing_ucsbdiningcommonsmenuitem() throws Exception {
+    // arrange
+
+    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 =
+        UCSBDiningCommonsMenuItem.builder()
+            .diningCommonsCode("ortega")
+            .name("Baked Pesto Pasta with Chicken")
+            .station("Entree Specials")
+            .build();
+
+    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem2 =
+        UCSBDiningCommonsMenuItem.builder()
+            .diningCommonsCode("portola")
+            .name("Lava Cake")
+            .station("Deserts")
+            .build();
+
+    String requestBody = mapper.writeValueAsString(ucsbDiningCommonsMenuItem2);
+
+    when(ucsbDiningCommonsMenuItemRepository.findById(eq(67L)))
+        .thenReturn(Optional.of(ucsbDiningCommonsMenuItem1));
+
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/ucsbdiningcommonsmenuitems")
+                    .param("id", "67")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    // assert
+    verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(67L);
+    verify(ucsbDiningCommonsMenuItemRepository, times(1)).save(ucsbDiningCommonsMenuItem2);
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(requestBody, responseString);
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_cannot_edit_ucsbdiningcommonsmenuitem_that_does_not_exist() throws Exception {
+    // arrange
+
+    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 =
+        UCSBDiningCommonsMenuItem.builder()
+            .diningCommonsCode("ortega")
+            .name("Baked Pesto Pasta with Chicken")
+            .station("Entree Specials")
+            .build();
+
+    String requestBody = mapper.writeValueAsString(ucsbDiningCommonsMenuItem1);
+
+    when(ucsbDiningCommonsMenuItemRepository.findById(eq(67L))).thenReturn(Optional.empty());
+
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/ucsbdiningcommonsmenuitems")
+                    .param("id", "67")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isNotFound())
+            .andReturn();
+
+    // assert
+    verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(67L);
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("UCSBDiningCommonsMenuItem with id 67 not found", json.get("message"));
   }
 }
