@@ -111,10 +111,10 @@ import org.springframework.web.bind.annotation.RestController;
   public MenuItemReview updateMenuItemReview(
       @Parameter(name = &quot;id&quot;) @RequestParam Long id, @RequestBody @Valid MenuItemReview incoming) {
 
-<span class="nc" id="L114">    MenuItemReview menuItemReview =</span>
+<span class="fc" id="L114">    MenuItemReview menuItemReview =</span>
         menuItemReviewRepository
-<span class="nc" id="L116">            .findById(id)</span>
-<span class="nc" id="L117">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+<span class="fc" id="L116">            .findById(id)</span>
+<span class="pc" id="L117">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
 
 <span class="nc" id="L119">    menuItemReview.setItemId(incoming.getItemId());</span>
 <span class="nc" id="L120">    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
