@@ -1,3 +1,4 @@
+
 {
   "databaseChangeLog": [
     {
@@ -54,50 +55,6 @@
                     }
                   }
                 }
-              ]
-            }
-          },
-          {
-            "insert": {
-              "tableName": "UCSBORGANIZATIONS",
-              "columns": [
-                {"column": {"name": "ORG_CODE", "value": "ZPR"}},
-                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "ZETA PHI RHO"}},
-                {"column": {"name": "ORG_TRANSLATION", "value": "ZETA PHI RHO"}},
-                {"column": {"name": "INACTIVE", "valueBoolean": false}}
-              ]
-            }
-          },
-          {
-            "insert": {
-              "tableName": "UCSBORGANIZATIONS",
-              "columns": [
-                {"column": {"name": "ORG_CODE", "value": "SKY"}},
-                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "SKYDIVING CLUB"}},
-                {"column": {"name": "ORG_TRANSLATION", "value": "SKYDIVING CLUB AT UCSB"}},
-                {"column": {"name": "INACTIVE", "valueBoolean": false}}
-              ]
-            }
-          },
-          {
-            "insert": {
-              "tableName": "UCSBORGANIZATIONS",
-              "columns": [
-                {"column": {"name": "ORG_CODE", "value": "OSLI"}},
-                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "STUDENT LIFE"}},
-                {"column": {"name": "ORG_TRANSLATION", "value": "OFFICE OF STUDENT LIFE"}},
-                {"column": {"name": "INACTIVE", "valueBoolean": false}}
-              ]
-            }
-          },
-          {
-            "insert": {
-              "tableName": "UCSBORGANIZATIONS",
-              "columns": [
-                {"column": {"name": "ORG_CODE", "value": "KRC"}},
-                {"column": {"name": "ORG_TRANSLATION_SHORT", "value": "KOREAN RADIO CL"}},
-                {"column": {"name": "ORG_TRANSLATION", "value": "KOREAN RADIO CLUB"}},
-                {"column": {"name": "INACTIVE", "valueBoolean": false}}
               ]
             }
           }
