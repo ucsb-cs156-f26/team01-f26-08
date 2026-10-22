@@ -118,7 +118,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a><wbr>&lt;<a href="../entities/RecommendationRequest.html" title="class in edu.ucsb.cs156.example.entities">RecommendationRequest</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#allRecommendationRequests()" class="member-name-link">allRecommendationRequests</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get a single date by id</div>
+<div class="block">List all recommendation requests</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/RecommendationRequest.html" title="class in edu.ucsb.cs156.example.entities">RecommendationRequest</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#postRecommendationRequest(java.lang.String,java.lang.String,java.lang.String,java.time.LocalDateTime,java.time.LocalDateTime,boolean)" class="member-name-link">postRecommendationRequest</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;requesterEmail,
@@ -173,12 +173,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@PreAuthorize("hasRole('ROLE_USER')")
 @GetMapping("/all")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="../entities/RecommendationRequest.html" title="class in edu.ucsb.cs156.example.entities">RecommendationRequest</a>&gt;</span>&nbsp;<span class="element-name">allRecommendationRequests</span>()</div>
-<div class="block">Get a single date by id</div>
+<div class="block">List all recommendation requests</div>
 <dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>id</code> - the id of the date</dd>
 <dt>Returns:</dt>
-<dd>a UCSBDate</dd>
+<dd>all recommendation requests</dd>
 </dl>
 </div>
 </section>
