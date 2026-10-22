@@ -44,8 +44,6 @@ public class MenuItemReviewsController extends ApiController {
   }
 
   /**
-   * Create a new date
-   *
    * @param itemId id of the item
    * @param reviewerEmail email of the reviewer
    * @param stars the rating in stars
@@ -53,7 +51,7 @@ public class MenuItemReviewsController extends ApiController {
    * @param dateReviewed the date of the review
    * @return the saved MenuItemReview
    */
-  @Operation(summary = "Create a new MenuItemReview")
+  @Operation(summary = "Create a new menu item review")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("/post")
   public MenuItemReview postMenuItemReview(
@@ -87,7 +85,7 @@ public class MenuItemReviewsController extends ApiController {
    * @param id the id of the MenuItemReview
    * @return a MenuItemReview
    */
-  @Operation(summary = "Get a single MenuItemReview")
+  @Operation(summary = "Get a single menu item review")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("")
   public MenuItemReview getById(@Parameter(name = "id") @RequestParam Long id) {
@@ -106,7 +104,7 @@ public class MenuItemReviewsController extends ApiController {
    * @param incoming the new review
    * @return the updated menuitemreview object
    */
-  @Operation(summary = "Update a single date")
+  @Operation(summary = "Update a single menu item review")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("")
   public MenuItemReview updateMenuItemReview(
@@ -134,7 +132,7 @@ public class MenuItemReviewsController extends ApiController {
    * @param id the id of the review to delete
    * @return a message indicating the review was deleted
    */
-  @Operation(summary = "Delete a MenuItemReview")
+  @Operation(summary = "Delete a menu item review")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @DeleteMapping("")
   public Object deleteMenuItemReview(@Parameter(name = "id") @RequestParam Long id) {
