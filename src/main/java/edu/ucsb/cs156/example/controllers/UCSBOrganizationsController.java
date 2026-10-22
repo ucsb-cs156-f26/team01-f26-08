@@ -45,18 +45,18 @@ public class UCSBOrganizationsController extends ApiController {
   /**
    * Get a UCSB organization by ID
    *
-   * @param id the ID of the organization
+   * @param orgCode the organization code
    * @return the UCSB organization
    */
   @Operation(summary = "Get a UCSB organization by ID")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("")
   public UCSBOrganizations getUCSBOrganizationById(
-      @Parameter(name = "id") @RequestParam String id) {
+      @Parameter(name = "orgCode") @RequestParam String orgCode) {
 
     UCSBOrganizations organization =
         ucsbOrganizationsRepository
-            .findById(id)
+            .findById(orgCode)
             .orElseThrow(
                 () ->
                     new ResponseStatusException(
@@ -68,7 +68,7 @@ public class UCSBOrganizationsController extends ApiController {
   /**
    * Update a UCSB organization
    *
-   * @param id the orgCode of the organization to update
+   * @param orgCode the organization code to update
    * @param incoming the updated organization data
    * @return the updated organization
    */
@@ -76,11 +76,12 @@ public class UCSBOrganizationsController extends ApiController {
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("")
   public UCSBOrganizations updateUCSBOrganization(
-      @Parameter(name = "id") @RequestParam String id, @RequestBody UCSBOrganizations incoming) {
+      @Parameter(name = "orgCode") @RequestParam String orgCode,
+      @RequestBody UCSBOrganizations incoming) {
 
     UCSBOrganizations organization =
         ucsbOrganizationsRepository
-            .findById(id)
+            .findById(orgCode)
             .orElseThrow(
                 () ->
                     new ResponseStatusException(
@@ -128,17 +129,17 @@ public class UCSBOrganizationsController extends ApiController {
   /**
    * Delete a UCSB organization
    *
-   * @param id the orgCode of the organization to delete
+   * @param orgCode the organization code
    * @return a confirmation message
    */
   @Operation(summary = "Delete a UCSB organization")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @DeleteMapping("")
-  public Object deleteUCSBOrganization(@Parameter(name = "id") @RequestParam String id) {
+  public Object deleteUCSBOrganization(@Parameter(name = "orgCode") @RequestParam String orgCode) {
 
     UCSBOrganizations organization =
         ucsbOrganizationsRepository
-            .findById(id)
+            .findById(orgCode)
             .orElseThrow(
                 () ->
                     new ResponseStatusException(
@@ -146,6 +147,6 @@ public class UCSBOrganizationsController extends ApiController {
 
     ucsbOrganizationsRepository.delete(organization);
 
-    return java.util.Map.of("message", "UCSBOrganizations with id " + id + " deleted");
+    return java.util.Map.of("message", "UCSBOrganizations with id " + orgCode + " deleted");
   }
 }
