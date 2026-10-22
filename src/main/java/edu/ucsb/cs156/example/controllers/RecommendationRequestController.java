@@ -26,10 +26,9 @@ public class RecommendationRequestController extends ApiController {
   @Autowired RecommendationRequestRepository recommendationRequestRepository;
 
   /**
-   * Get a single date by id
+   * List all recommendation requests
    *
-   * @param id the id of the date
-   * @return a UCSBDate
+   * @return all recommendation requests
    */
   @Operation(summary = "List all recommendation requests")
   @PreAuthorize("hasRole('ROLE_USER')")
