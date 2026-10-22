@@ -2,6 +2,7 @@
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.ucsb.cs156.example.entities.MenuItemReview;
+import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.MenuItemReviewRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = &quot;MenuItemReviews&quot;)
 @RequestMapping(&quot;/api/menuitemreviews&quot;)
 @RestController
-<span class="fc" id="L23">@Slf4j</span>
-<span class="fc" id="L24">public class MenuItemReviewsController extends ApiController {</span>
+<span class="fc" id="L24">@Slf4j</span>
+<span class="fc" id="L25">public class MenuItemReviewsController extends ApiController {</span>
 
   @Autowired MenuItemReviewRepository menuItemReviewRepository;
 
@@ -34,8 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;/all&quot;)
   public Iterable&lt;MenuItemReview&gt; allMenuItemReviews() {
-<span class="fc" id="L37">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
-<span class="fc" id="L38">    return menuItemReviews;</span>
+<span class="fc" id="L38">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
+<span class="fc" id="L39">    return menuItemReviews;</span>
   }
 
   /**
@@ -62,26 +63,44 @@ import org.springframework.web.bind.annotation.RestController;
     // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     // See: https://www.baeldung.com/spring-date-parameters
 
-<span class="fc" id="L65">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
+<span class="fc" id="L66">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
 
-<span class="fc" id="L67">    MenuItemReview review = new MenuItemReview();</span>
-<span class="fc" id="L68">    review.setItemId(itemId);</span>
-<span class="fc" id="L69">    review.setReviewerEmail(reviewerEmail);</span>
-<span class="fc" id="L70">    review.setStars(stars);</span>
-<span class="fc" id="L71">    review.setComments(comments);</span>
-<span class="fc" id="L72">    review.setDateReviewed(dateReviewed);</span>
+<span class="fc" id="L68">    MenuItemReview review = new MenuItemReview();</span>
+<span class="fc" id="L69">    review.setItemId(itemId);</span>
+<span class="fc" id="L70">    review.setReviewerEmail(reviewerEmail);</span>
+<span class="fc" id="L71">    review.setStars(stars);</span>
+<span class="fc" id="L72">    review.setComments(comments);</span>
+<span class="fc" id="L73">    review.setDateReviewed(dateReviewed);</span>
 
-<span class="fc" id="L74">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
+<span class="fc" id="L75">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
 
-<span class="fc" id="L76">    return savedMenuItemReview;</span>
+<span class="fc" id="L77">    return savedMenuItemReview;</span>
+  }
+
+  /**
+   * Get a single MenuItemReview by id
+   *
+   * @param id the id of the MenuItemReview
+   * @return a MenuItemReview
+   */
+  @Operation(summary = &quot;Get a single MenuItemReview&quot;)
+  @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+  @GetMapping(&quot;&quot;)
+  public MenuItemReview getById(@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L90">    MenuItemReview menuItemReview =</span>
+        menuItemReviewRepository
+<span class="fc" id="L92">            .findById(id)</span>
+<span class="fc" id="L93">            .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+
+<span class="fc" id="L95">    return menuItemReview;</span>
   }
 }
 
-  // private Long id;
+// private Long id;
 
-  // private Long itemId;
-  // private String reviewerEmail;
-  // private int stars;
-  // private String comments;
-  // private LocalDateTime dateReviewed;
+// private Long itemId;
+// private String reviewerEmail;
+// private int stars;
+// private String comments;
+// private LocalDateTime dateReviewed;
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
