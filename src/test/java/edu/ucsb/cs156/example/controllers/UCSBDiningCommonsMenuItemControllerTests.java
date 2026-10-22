@@ -210,8 +210,8 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
     MvcResult response =
         mockMvc
             .perform(
-                put("/api/ucsbdiningcommonsmenuitems?id=67")
-                    // .param("id", "67")
+                put("/api/ucsbdiningcommonsmenuitems")
+                    .param("id", "67")
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("utf-8")
                     .content(requestBody)
