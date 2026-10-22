@@ -1,0 +1,20 @@
+
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "MenuItemReviews-3",
+        "author": "s-kyli",
+        "changes": [
+          {
+            "addAutoIncrement": {
+              "tableName": "MENUITEMREVIEWS",
+              "columnName": "ID",
+              "columnDataType": "BIGINT"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
