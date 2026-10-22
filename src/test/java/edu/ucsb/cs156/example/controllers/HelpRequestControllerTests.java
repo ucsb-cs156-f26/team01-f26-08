@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(controllers = HelpRequestController.class)
 @Import(TestConfig.class)
-public class HelpRequestsControllerTests extends ControllerTestCase {
+public class HelpRequestControllerTests extends ControllerTestCase {
 
   @MockitoBean HelpRequestRepository helpRequestRepository;
 
