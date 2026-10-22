@@ -45,18 +45,18 @@ import org.springframework.web.server.ResponseStatusException;
   /**
    * Get a UCSB organization by ID
    *
-   * @param id the ID of the organization
+   * @param orgCode the organization code
    * @return the UCSB organization
    */
   @Operation(summary = &quot;Get a UCSB organization by ID&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;&quot;)
   public UCSBOrganizations getUCSBOrganizationById(
-      @Parameter(name = &quot;id&quot;) @RequestParam String id) {
+      @Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode) {
 
 <span class="fc" id="L57">    UCSBOrganizations organization =</span>
         ucsbOrganizationsRepository
-<span class="fc" id="L59">            .findById(id)</span>
+<span class="fc" id="L59">            .findById(orgCode)</span>
 <span class="fc" id="L60">            .orElseThrow(</span>
                 () -&gt;
 <span class="fc" id="L62">                    new ResponseStatusException(</span>
@@ -68,7 +68,7 @@ import org.springframework.web.server.ResponseStatusException;
   /**
    * Update a UCSB organization
    *
-   * @param id the orgCode of the organization to update
+   * @param orgCode the organization code to update
    * @param incoming the updated organization data
    * @return the updated organization
    */
@@ -76,23 +76,24 @@ import org.springframework.web.server.ResponseStatusException;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @PutMapping(&quot;&quot;)
   public UCSBOrganizations updateUCSBOrganization(
-      @Parameter(name = &quot;id&quot;) @RequestParam String id, @RequestBody UCSBOrganizations incoming) {
+      @Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode,
+      @RequestBody UCSBOrganizations incoming) {
 
-<span class="fc" id="L81">    UCSBOrganizations organization =</span>
+<span class="fc" id="L82">    UCSBOrganizations organization =</span>
         ucsbOrganizationsRepository
-<span class="fc" id="L83">            .findById(id)</span>
-<span class="fc" id="L84">            .orElseThrow(</span>
+<span class="fc" id="L84">            .findById(orgCode)</span>
+<span class="fc" id="L85">            .orElseThrow(</span>
                 () -&gt;
-<span class="fc" id="L86">                    new ResponseStatusException(</span>
+<span class="fc" id="L87">                    new ResponseStatusException(</span>
                         HttpStatus.NOT_FOUND, &quot;UCSB Organization Not Found&quot;));
 
-<span class="fc" id="L89">    organization.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
-<span class="fc" id="L90">    organization.setOrgTranslation(incoming.getOrgTranslation());</span>
-<span class="fc" id="L91">    organization.setInactive(incoming.getInactive());</span>
+<span class="fc" id="L90">    organization.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
+<span class="fc" id="L91">    organization.setOrgTranslation(incoming.getOrgTranslation());</span>
+<span class="fc" id="L92">    organization.setInactive(incoming.getInactive());</span>
 
-<span class="fc" id="L93">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
+<span class="fc" id="L94">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
 
-<span class="fc" id="L95">    return savedOrganization;</span>
+<span class="fc" id="L96">    return savedOrganization;</span>
   }
 
   /**
@@ -114,39 +115,39 @@ import org.springframework.web.server.ResponseStatusException;
       @Parameter(name = &quot;inactive&quot;) @RequestParam boolean inactive)
       throws JsonProcessingException {
 
-<span class="fc" id="L117">    UCSBOrganizations organization = new UCSBOrganizations();</span>
-<span class="fc" id="L118">    organization.setOrgCode(orgCode);</span>
-<span class="fc" id="L119">    organization.setOrgTranslationShort(orgTranslationShort);</span>
-<span class="fc" id="L120">    organization.setOrgTranslation(orgTranslation);</span>
-<span class="fc" id="L121">    organization.setInactive(inactive);</span>
+<span class="fc" id="L118">    UCSBOrganizations organization = new UCSBOrganizations();</span>
+<span class="fc" id="L119">    organization.setOrgCode(orgCode);</span>
+<span class="fc" id="L120">    organization.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L121">    organization.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L122">    organization.setInactive(inactive);</span>
 
-<span class="fc" id="L123">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
+<span class="fc" id="L124">    UCSBOrganizations savedOrganization = ucsbOrganizationsRepository.save(organization);</span>
 
-<span class="fc" id="L125">    return savedOrganization;</span>
+<span class="fc" id="L126">    return savedOrganization;</span>
   }
 
   /**
    * Delete a UCSB organization
    *
-   * @param id the orgCode of the organization to delete
+   * @param orgCode the organization code
    * @return a confirmation message
    */
   @Operation(summary = &quot;Delete a UCSB organization&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @DeleteMapping(&quot;&quot;)
-  public Object deleteUCSBOrganization(@Parameter(name = &quot;id&quot;) @RequestParam String id) {
+  public Object deleteUCSBOrganization(@Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode) {
 
-<span class="fc" id="L139">    UCSBOrganizations organization =</span>
+<span class="fc" id="L140">    UCSBOrganizations organization =</span>
         ucsbOrganizationsRepository
-<span class="fc" id="L141">            .findById(id)</span>
-<span class="fc" id="L142">            .orElseThrow(</span>
+<span class="fc" id="L142">            .findById(orgCode)</span>
+<span class="fc" id="L143">            .orElseThrow(</span>
                 () -&gt;
-<span class="fc" id="L144">                    new ResponseStatusException(</span>
+<span class="fc" id="L145">                    new ResponseStatusException(</span>
                         HttpStatus.NOT_FOUND, &quot;UCSB Organization Not Found&quot;));
 
-<span class="fc" id="L147">    ucsbOrganizationsRepository.delete(organization);</span>
+<span class="fc" id="L148">    ucsbOrganizationsRepository.delete(organization);</span>
 
-<span class="fc" id="L149">    return java.util.Map.of(&quot;message&quot;, &quot;UCSBOrganizations with id &quot; + id + &quot; deleted&quot;);</span>
+<span class="fc" id="L150">    return java.util.Map.of(&quot;message&quot;, &quot;UCSBOrganizations with id &quot; + orgCode + &quot; deleted&quot;);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
