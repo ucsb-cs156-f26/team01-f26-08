@@ -212,6 +212,8 @@ public class MenuItemControllerTests extends ControllerTestCase {
     assertEquals(expectedJson, responseString);
   }
 
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
   public void admin_can_edit_an_existing_menuitemreview() throws Exception {
     // arrange
 
