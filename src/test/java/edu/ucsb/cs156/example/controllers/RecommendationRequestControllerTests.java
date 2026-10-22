@@ -163,7 +163,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
   @Test
   public void logged_out_users_cannot_get_by_id() throws Exception {
     mockMvc
-        .perform(get("/api/recommendationrequests").param("id", "7"))
+        .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
         .andExpect(status().is(403)); // logged out users can't get by id
   }
 
@@ -191,7 +191,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(get("/api/recommendationrequests").param("id", "7"))
+            .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -214,7 +214,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(get("/api/recommendationrequests").param("id", "7"))
+            .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -224,5 +224,98 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
     Map<String, Object> json = responseToJson(response);
     assertEquals("EntityNotFoundException", json.get("type"));
     assertEquals("RecommendationRequest with id 7 not found", json.get("message"));
+  }
+
+  @Test
+  public void logged_out_users_cannot_put() throws Exception {
+    mockMvc
+        .perform(
+            put("/api/RecommendationRequest")
+                .param("id", "7")
+                .with(csrf())
+                .contentType("application/json")
+                .content("{}"))
+        .andExpect(status().isForbidden());
+    org.mockito.Mockito.verifyNoInteractions(recommendationRequestRepository);
+  }
+
+  @Test
+  @WithMockUser(roles = {"USER"})
+  public void regular_users_cannot_put() throws Exception {
+    mockMvc
+        .perform(
+            put("/api/RecommendationRequest")
+                .param("id", "7")
+                .with(csrf())
+                .contentType("application/json")
+                .content("{}"))
+        .andExpect(status().isForbidden());
+    org.mockito.Mockito.verifyNoInteractions(recommendationRequestRepository);
+  }
+
+  @Test
+  @WithMockUser(roles = {"ADMIN"})
+  public void admin_can_update_all_fields_and_preserve_id() throws Exception {
+    for (String path : new String[] {"/api/RecommendationRequest", "/api/RECOMMENDATIONREQUESTS"}) {
+      RecommendationRequest original =
+          RecommendationRequest.builder()
+              .id(7L)
+              .requesterEmail("old@ucsb.edu")
+              .professorEmail("oldprof@ucsb.edu")
+              .explanation("old")
+              .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
+              .dateNeeded(LocalDateTime.parse("2022-02-01T00:00:00"))
+              .done(false)
+              .build();
+      RecommendationRequest incoming =
+          RecommendationRequest.builder()
+              .id(999L)
+              .requesterEmail("new@ucsb.edu")
+              .professorEmail("newprof@ucsb.edu")
+              .explanation("new")
+              .dateRequested(LocalDateTime.parse("2026-10-21T12:00:00"))
+              .dateNeeded(LocalDateTime.parse("2026-11-21T12:00:00"))
+              .done(true)
+              .build();
+      String body = mapper.writeValueAsString(incoming);
+      incoming.setId(7L);
+      when(recommendationRequestRepository.findById(7L)).thenReturn(Optional.of(original));
+      MvcResult response =
+          mockMvc
+              .perform(
+                  put(path)
+                      .param("id", "7")
+                      .with(csrf())
+                      .contentType("application/json")
+                      .content(body))
+              .andExpect(status().isOk())
+              .andReturn();
+      assertEquals(
+          mapper.writeValueAsString(incoming), response.getResponse().getContentAsString());
+      verify(recommendationRequestRepository).save(eq(incoming));
+      org.mockito.Mockito.reset(recommendationRequestRepository);
+    }
+  }
+
+  @Test
+  @WithMockUser(roles = {"ADMIN"})
+  public void updating_missing_request_returns_not_found() throws Exception {
+    when(recommendationRequestRepository.findById(7L)).thenReturn(Optional.empty());
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/RecommendationRequest")
+                    .param("id", "7")
+                    .with(csrf())
+                    .contentType("application/json")
+                    .content("{}"))
+            .andExpect(status().isNotFound())
+            .andReturn();
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("EntityNotFoundException", json.get("type"));
+    assertEquals("RecommendationRequest with id 7 not found", json.get("message"));
+    verify(recommendationRequestRepository).findById(7L);
+    verify(recommendationRequestRepository, org.mockito.Mockito.never())
+        .save(org.mockito.ArgumentMatchers.any());
   }
 }
