@@ -65,6 +65,7 @@ loadScripts(document, 'script');</script>
 <ol class="toc-list">
 <li><a href="#allUCSBOrganizations()" tabindex="0">allUCSBOrganizations()</a></li>
 <li><a href="#getUCSBOrganizationById(java.lang.String)" tabindex="0">getUCSBOrganizationById(String)</a></li>
+<li><a href="#updateUCSBOrganization(java.lang.String,edu.ucsb.cs156.example.entities.UCSBOrganizations)" tabindex="0">updateUCSBOrganization(String, UCSBOrganizations)</a></li>
 <li><a href="#postUCSBOrganization(java.lang.String,java.lang.String,java.lang.String,boolean)" tabindex="0">postUCSBOrganization(String, String, String, boolean)</a></li>
 </ol>
 </li>
@@ -134,6 +135,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Create a new UCSB organization</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateUCSBOrganization(java.lang.String,edu.ucsb.cs156.example.entities.UCSBOrganizations)" class="member-name-link">updateUCSBOrganization</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id,
+ <a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a>&nbsp;incoming)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Update a UCSB organization</div>
+</div>
 </div>
 </div>
 </div>
@@ -199,6 +206,27 @@ loadScripts(document, 'script');</script>
 <dd><code>id</code> - the ID of the organization</dd>
 <dt>Returns:</dt>
 <dd>the UCSB organization</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="updateUCSBOrganization(java.lang.String,edu.ucsb.cs156.example.entities.UCSBOrganizations)">
+<h3>updateUCSBOrganization</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="annotations">@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PutMapping("")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></span>&nbsp;<span class="element-name">updateUCSBOrganization</span><wbr><span class="parameters">(@RequestParam
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id,
+ @RequestBody
+ <a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a>&nbsp;incoming)</span></div>
+<div class="block">Update a UCSB organization</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>id</code> - the orgCode of the organization to update</dd>
+<dd><code>incoming</code> - the updated organization data</dd>
+<dt>Returns:</dt>
+<dd>the updated organization</dd>
 </dl>
 </div>
 </section>
