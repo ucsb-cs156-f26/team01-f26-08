@@ -163,7 +163,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
   @Test
   public void logged_out_users_cannot_get_by_id() throws Exception {
     mockMvc
-        .perform(get("/api/recommendationrequests").param("id", "7"))
+        .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
         .andExpect(status().is(403)); // logged out users can't get by id
   }
 
@@ -191,7 +191,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(get("/api/recommendationrequests").param("id", "7"))
+            .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -214,7 +214,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(get("/api/recommendationrequests").param("id", "7"))
+            .perform(get("/api/RECOMMENDATIONREQUESTS").param("id", "7"))
             .andExpect(status().isNotFound())
             .andReturn();
 
