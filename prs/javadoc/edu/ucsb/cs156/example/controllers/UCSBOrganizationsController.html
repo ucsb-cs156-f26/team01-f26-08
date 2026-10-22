@@ -124,12 +124,12 @@ loadScripts(document, 'script');</script>
 <div class="block">List all UCSB organizations</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteUCSBOrganization(java.lang.String)" class="member-name-link">deleteUCSBOrganization</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteUCSBOrganization(java.lang.String)" class="member-name-link">deleteUCSBOrganization</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Delete a UCSB organization</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUCSBOrganizationById(java.lang.String)" class="member-name-link">getUCSBOrganizationById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUCSBOrganizationById(java.lang.String)" class="member-name-link">getUCSBOrganizationById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get a UCSB organization by ID</div>
 </div>
@@ -142,7 +142,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Create a new UCSB organization</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateUCSBOrganization(java.lang.String,edu.ucsb.cs156.example.entities.UCSBOrganizations)" class="member-name-link">updateUCSBOrganization</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateUCSBOrganization(java.lang.String,edu.ucsb.cs156.example.entities.UCSBOrganizations)" class="member-name-link">updateUCSBOrganization</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode,
  <a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a>&nbsp;incoming)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update a UCSB organization</div>
@@ -205,11 +205,11 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@PreAuthorize("hasRole('ROLE_USER')")
 @GetMapping("")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></span>&nbsp;<span class="element-name">getUCSBOrganizationById</span><wbr><span class="parameters">(@RequestParam
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode)</span></div>
 <div class="block">Get a UCSB organization by ID</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>id</code> - the ID of the organization</dd>
+<dd><code>orgCode</code> - the organization code</dd>
 <dt>Returns:</dt>
 <dd>the UCSB organization</dd>
 </dl>
@@ -223,13 +223,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@PreAuthorize("hasRole('ROLE_ADMIN')")
 @PutMapping("")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a></span>&nbsp;<span class="element-name">updateUCSBOrganization</span><wbr><span class="parameters">(@RequestParam
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode,
  @RequestBody
  <a href="../entities/UCSBOrganizations.html" title="class in edu.ucsb.cs156.example.entities">UCSBOrganizations</a>&nbsp;incoming)</span></div>
 <div class="block">Update a UCSB organization</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>id</code> - the orgCode of the organization to update</dd>
+<dd><code>orgCode</code> - the organization code to update</dd>
 <dd><code>incoming</code> - the updated organization data</dd>
 <dt>Returns:</dt>
 <dd>the updated organization</dd>
@@ -274,11 +274,11 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@PreAuthorize("hasRole('ROLE_ADMIN')")
 @DeleteMapping("")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">deleteUCSBOrganization</span><wbr><span class="parameters">(@RequestParam
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;orgCode)</span></div>
 <div class="block">Delete a UCSB organization</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>id</code> - the orgCode of the organization to delete</dd>
+<dd><code>orgCode</code> - the organization code</dd>
 <dt>Returns:</dt>
 <dd>a confirmation message</dd>
 </dl>
