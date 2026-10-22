@@ -7,12 +7,15 @@ import edu.ucsb.cs156.example.repositories.MenuItemReviewRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -94,12 +97,33 @@ public class MenuItemReviewsController extends ApiController {
 
     return menuItemReview;
   }
+
+  /**
+   * Update a single review
+   *
+   * @param id id of the review to update
+   * @param incoming the new review
+   * @return the updated menuitemreview object
+   */
+  @Operation(summary = "Update a single date")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PutMapping("")
+  public MenuItemReview updateMenuItemReview(
+      @Parameter(name = "id") @RequestParam Long id, @RequestBody @Valid MenuItemReview incoming) {
+
+    MenuItemReview menuItemReview =
+        menuItemReviewRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+    menuItemReview.setItemId(incoming.getItemId());
+    menuItemReview.setReviewerEmail(incoming.getReviewerEmail());
+    menuItemReview.setDateReviewed(incoming.getDateReviewed());
+    menuItemReview.setComments(incoming.getComments());
+    menuItemReview.setStars(incoming.getStars());
+
+    menuItemReviewRepository.save(menuItemReview);
+
+    return menuItemReview;
+  }
 }
-
-// private Long id;
-
-// private Long itemId;
-// private String reviewerEmail;
-// private int stars;
-// private String comments;
-// private LocalDateTime dateReviewed;
