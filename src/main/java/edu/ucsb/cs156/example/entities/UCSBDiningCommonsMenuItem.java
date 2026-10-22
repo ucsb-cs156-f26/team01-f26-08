@@ -1,6 +1,5 @@
 package edu.ucsb.cs156.example.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(name = "ucsbdiningcommonsmenuitems")
 public class UCSBDiningCommonsMenuItem {
   @Id
