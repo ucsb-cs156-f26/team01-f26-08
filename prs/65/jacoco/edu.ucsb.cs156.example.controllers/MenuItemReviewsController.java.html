@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = &quot;MenuItemReviews&quot;)
 @RequestMapping(&quot;/api/menuitemreviews&quot;)
 @RestController
-<span class="nc" id="L23">@Slf4j</span>
-<span class="nc" id="L24">public class MenuItemReviewsController extends ApiController {</span>
+<span class="fc" id="L23">@Slf4j</span>
+<span class="fc" id="L24">public class MenuItemReviewsController extends ApiController {</span>
 
   @Autowired MenuItemReviewRepository menuItemReviewRepository;
 
@@ -34,8 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;/all&quot;)
   public Iterable&lt;MenuItemReview&gt; allMenuItemReviews() {
-<span class="nc" id="L37">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
-<span class="nc" id="L38">    return menuItemReviews;</span>
+<span class="fc" id="L37">    Iterable&lt;MenuItemReview&gt; menuItemReviews = menuItemReviewRepository.findAll();</span>
+<span class="fc" id="L38">    return menuItemReviews;</span>
   }
 
   /**
@@ -62,18 +62,18 @@ import org.springframework.web.bind.annotation.RestController;
     // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     // See: https://www.baeldung.com/spring-date-parameters
 
-<span class="nc" id="L65">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
+<span class="fc" id="L65">    log.info(&quot;localDateTime={}&quot;, dateReviewed);</span>
 
-<span class="nc" id="L67">    MenuItemReview review = new MenuItemReview();</span>
-<span class="nc" id="L68">    review.setItemId(itemId);</span>
-<span class="nc" id="L69">    review.setReviewerEmail(reviewerEmail);</span>
-<span class="nc" id="L70">    review.setStars(stars);</span>
-<span class="nc" id="L71">    review.setComments(comments);</span>
-<span class="nc" id="L72">    review.setDateReviewed(dateReviewed);</span>
+<span class="fc" id="L67">    MenuItemReview review = new MenuItemReview();</span>
+<span class="fc" id="L68">    review.setItemId(itemId);</span>
+<span class="fc" id="L69">    review.setReviewerEmail(reviewerEmail);</span>
+<span class="fc" id="L70">    review.setStars(stars);</span>
+<span class="fc" id="L71">    review.setComments(comments);</span>
+<span class="fc" id="L72">    review.setDateReviewed(dateReviewed);</span>
 
-<span class="nc" id="L74">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
+<span class="fc" id="L74">    MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(review);</span>
 
-<span class="nc" id="L76">    return savedMenuItemReview;</span>
+<span class="fc" id="L76">    return savedMenuItemReview;</span>
   }
 }
 
